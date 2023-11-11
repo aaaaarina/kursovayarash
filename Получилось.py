@@ -124,7 +124,7 @@ def linear_search(arr, item):
 
 @time_it
 # Функция двоичного поиска для всех вхождений элемента
-def binary_search_all(arr, item):
+def binary_search_all(arr, item, order):
     indices = []  # Список для хранения индексов
     low = 0  # Нижняя граница
     high = len(arr) - 1  # Верхняя граница
@@ -138,7 +138,7 @@ def binary_search_all(arr, item):
         if guess == item:
             first_occurrence = mid
             break
-        elif guess > item:
+        elif (order == 1 and guess > item) or (order == 2 and guess < item):
             high = mid - 1
         else:
             low = mid + 1
@@ -148,13 +148,13 @@ def binary_search_all(arr, item):
 
     # Поиск влево от первого вхождения
     left = first_occurrence
-    while left >= 0 and arr[left] == item:
+    while left >= 0 and ((order == 1 and arr[left] == item) or (order == 2 and arr[left] == item)):
         indices.append(left)
         left -= 1
 
     # Поиск вправо от первого вхождения
     right = first_occurrence + 1
-    while right < len(arr) and arr[right] == item:
+    while right < len(arr) and ((order == 1 and arr[right] == item) or (order == 2 and arr[right] == item)):
         indices.append(right)
         right += 1
 
